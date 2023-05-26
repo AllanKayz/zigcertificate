@@ -5,42 +5,67 @@ const membershipCategory = document.getElementById('membershipCategory');
 const membershipID = document.getElementById('membershipID');
 const downloadBtn = document.getElementById('download-btn');
 
-let category = "";
-let member = "";
-let membershipID = "";
+
+let category = "sample";
+let member = "sample";
+let membershipNumber = "sample";
 
 const image = new Image();
 image.src = "ZiGCertTemplate.png";
 image.onload = function() {
-    drawImage();
+    drawImage(member, category, membershipNumber);
 }
 
-function drawImage(fontsize,fonttype, fontcolor) {
+function drawImage(member,category,membershipNumber) {
     ctx.drawImage(image,0,0,canvas.width,canvas.height);
-    ctx.font = fontsize +" " + fonttype;
-    console.log(ctx.font)
-    ctx.fillStyle = fontcolor;
-    //ctx.fillText(textfill, 40, 180);
+    let x = 1126, 
+        y = 1000;
+    let maxWidth = 1080;
+    
+    ctx.font = "150px Charm";
+    ctx.fillStyle = "#262264";
+    ctx.fillText(member, x, y, maxWidth);
+    
+    let textWidth = ctx.measureText(member).with;
+    let startX = x - textWidth/2;
+    let startY = y - 0;
+    ctx.fillText(member, startX, startY, maxWidth);
+    
+    ctx.font = "79px Century Gothic";
+    ctx.fillStyle = "#262264";
+    ctx.fillText("IS A MEMBER OF ZIMBABWE INSTITUTE OF GEOMATICS", 610, 1200)
+    ctx.fillText(category.toUpperCase(), 410, 1300);
+    
+    ctx.font = "88px Liberation Mono";
+    ctx.fillStyle = "#262264";
+    ctx.fillText(membershipNumber, 500, 1730);
 }
 
 memberName.addEventListener('input', function(){
-    const member = memberName.value;
-    drawImage("150px","Charm","#262264");
-    ctx.fillText(member, 40, 180);
+    member = memberName.value;
 })
 
 membershipCategory.addEventListener('input', function(){
-    const category = membershipCategory.value;
-    drawImage("79px","Century Gothic","#262264");
-    ctx.fillText(category, 60, 180);
+    category = "REGISTERED AS A GEOMATICS " + membershipCategory.value + " UNTIL 31 AUGUST 2023";
 })
 
 membershipID.addEventListener('input', function(){
-    const IdNumber = membershipID.value;
-    drawImage("88px","Liberation Mono","#262264", IdNumber);
+    membershipNumber= "ZIG" + membershipID.value;
 })
 
 downloadBtn.addEventListener('click', function(){
-    downloadBtn.href = canvas.toDataURL();
-    downloadBtn.download = "Certificate - "+memberName.value;
+    console.log(member + "|"+ category + "|"+ membershipNumber);
+    
+    if(member == "" || category == "" || membershipNumber == "") {
+        alert("Missing Information");
+    }
+    else if(member == "sample" || category == "sample" || membershipNumber == "sample") {
+        alert("Missing Information, fill in Again");
+    }
+    else {
+        
+        drawImage(member,category,membershipNumber);
+        downloadBtn.href = canvas.toDataURL();
+        downloadBtn.download = "Certificate - "+member;
+    }
 })
