@@ -1,52 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-        <link href='https://fonts.googleapis.com/css?family=Charm' rel='stylesheet'>
-        
-        <link href="https://fonts.cdnfonts.com/css/liberation-mono" rel="stylesheet">
-        <link href="https://fonts.cdnfonts.com/css/century-gothic" rel="stylesheet">
-        <link href="main.css" rel="stylesheet">
-                
-        <title>ZIG CERTIFICATE</title>
-    </head>
-    <body>
-        <main class="container-fluid">
-            <div class="certDetails">
-                <h1 class="h2">ZIG CERTIFICATE GENERATOR</h1>
-                <nav class="nav nav-pills flex-column flex-sm-row">
-  <a class="flex-sm-fill text-sm-center nav-link" aria-current="page" href="#">
-      <div class="input-group mb-3">
-  <span class="input-group-text" id="inputGroup-sizing-default">NAME</span>
-  <input id="memberName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-</div>
-  </a>
-  <a class="flex-sm-fill text-sm-center nav-link" href="#">
-            <div class="input-group mb-3">
-  <span class="input-group-text" id="inputGroup-sizing-default">CATEGORY</span>
-  <input id="membershipCategory" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-</div>
-  </a>
-  <a class="flex-sm-fill text-sm-center nav-link" href="#">
-      <div class="input-group mb-3">
-  <span class="input-group-text" id="inputGroup-sizing-default">MEMBERSHIP ID</span>
-  <input id="membershipID" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-</div>
-  </a>
-  <a href="#" id="download-btn" class="btn btn-danger flex-sm-fill text-sm-center nav-link">
-      Download
-  </a>
-</nav>
-                
-            </div>
-            <div class="certPrev p-3">
-                <div class="img-fluid">
-                <canvas id="canvas" width="3335px" height="2364px"></canvas>
+<head>
+    <meta charset="UTF8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Charm' rel='stylesheet'>
+
+    <link href="https://fonts.cdnfonts.com/css/liberation-mono" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/century-gothic" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <title>ZIG CERTIFICATE</title>
+</head>
+<body>
+    <main class="container-fluid">
+        <div class="certDetails align-self-center">
+            <h2 class="h3 pt-2 text-center">Zimbabwe Institute of Geomatics <br> CERTIFICATE GENERATOR</h2>
+            <nav class="nav nav-pills flex-column flex-row justify-content-center">
+                <a class="flex-sm-fill text-sm-center nav-link" aria-current="page" href="#">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">NAME</span>
+                        <input id="memberName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="#">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">CATEGORY</span>
+                        <input id="membershipCategory" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="#">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">MEMBERSHIP ID</span>
+                        <input id="membershipID" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </a>
+                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                    <a href="#" id="download-btn-png" type="button" class="btn btn-outline-primary">PNG <i class="fa-regular fa-file-image"></i></a>
+                    <a id="download-btn-pdf" type="button" class="btn btn-outline-success">PDF <i class="fa-regular fa-file-pdf"></i></a>
                 </div>
+            </nav>
+
+        </div>
+        <div class="certPrev p-3">
+            <div class="img-fluid">
+                <canvas id="canvas" width="3335px" height="2364px"></canvas>
             </div>
-        </main>
-        <script src="zigcertapi.js"></script>
-    </body>
+        </div>
+    </main>
+    <div class="container">
+        <footer class="pb-3 fixed-bottom text-center">
+            <img src="zigLogo.png" width="50" height="50" class="img-fluid" alt="ZIG"> Rights Reserved | Powered by <a href="allankayz.co.zw"><img src="AKLogo.ico" width="20" height="20" class="img-fluid" alt="AK"> Technologies</a>
+        </footer>
+    </div>
+    <script src="zigcertapi.js"></script>
+</body>
 </html>
