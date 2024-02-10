@@ -11,8 +11,8 @@ const categories = document
   .getElementById("categories")
   .getElementsByTagName("option");
 
-import jsPDF from "jspdf";
-//const { jsPDF } = window.jspdf;
+//import jsPDF from "jspdf";
+const { jsPDF } = window.jspdf;
 
 let category = "sample";
 let member = "sample";
