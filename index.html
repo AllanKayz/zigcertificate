@@ -28,7 +28,6 @@
 <body>
     <main class="container-fluid">
         <div class="certDetails row justify-content-center mt-5">
-            <div class="alert alert-danger" role="alert" hidden>gggdd</div>
             <div class="card">
                 <div class="card-header">
                     <h2 class="h3 pt-2 text-center">Zimbabwe Institute of Geomatics <br> CERTIFICATE GENERATOR</h2>
@@ -45,8 +44,9 @@
                         <a class="flex-sm-fill text-sm-center nav-link" href="#">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">CATEGORY</span>
-                                <input id="membershipCategory" type="text" class="form-control" list="categories" onchange="getData(this)"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <input id="membershipCategory" type="text" class="form-control" list="categories"
+                                    onchange="getData(this)" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default">
                                 <datalist id="categories">
                                     <option>TECHNOLOGIST</option>
                                     <option>PROFESSIONAL</option>
@@ -68,10 +68,12 @@
                             </div>
                         </a>
                         <div class=" btn-group" role="group" aria-label="Basic outlined example">
-                            <a href="#" id="download-btn-png" type="button" class="btn btn-outline-primary">PNG <i
+                            <a href="#" id="download-btn-png" type="button" class="btn btn-outline-primary"
+                                data-bs-toggle="modal" data-bs-target="#allPurpose">PNG <i
                                     class="fa-regular fa-file-image"></i></a>
-                            <a id="download-btn-pdf" type="button" class="btn btn-outline-success">PDF <i
-                                    class="fa-regular fa-file-pdf"></i></a>
+                            <a id="download-btn-pdf" type="button" class="btn btn-outline-success"
+                                class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#allPurpose">PDF
+                                <i class="fa-regular fa-file-pdf"></i></a>
                         </div>
                     </nav>
                 </div>
@@ -79,9 +81,29 @@
         </div>
         <div class="certPrev p-3">
             <div class="img-fluid">
-                <canvas id="canvas" width="3335px" height="2364px"></canvas>
+                <canvas id="canvas" width="1667.5px" height="1182px"></canvas>
             </div>
         </div>
+        <!--Modal Instructions-->
+        <div class="modal fade" id="allPurpose" tabindex="-1" aria-labelledby="allPurposeLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="allPurposeLabel">Modal Title change</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modalContent">
+                        Modal intechangeble content
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnClose" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                        <a href="#" id="multiPurposeBtn" class="btn btn-primary">OK</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
     <div class="container">
         <footer class="pb-3 fixed-bottom text-center">

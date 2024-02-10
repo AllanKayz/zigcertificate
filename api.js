@@ -10,9 +10,13 @@ const year = new Date();
 const categories = document
   .getElementById("categories")
   .getElementsByTagName("option");
+let modalTitle = document.getElementById("allPurposeLabel");
+let modalContent = document.getElementById("modalContent");
+let multiPurposeBtn = document.getElementById("multiPurposeBtn");
+let downloadOption = "";
 
 //import jsPDF from "jspdf";
-const { jsPDF } = window.jspdf;
+//const { jsPDF } = window.jspdf;
 
 let category = "sample";
 let member = "sample";
@@ -42,7 +46,7 @@ getData = function (elem) {
   if (optionVals.indexOf(elem.value) > -1) {
     return elem;
   } else {
-    alert("Insert correct membership category");
+    controlModalContent("catError");
     membershipCategory.value = "";
   }
 };
@@ -50,23 +54,23 @@ getData = function (elem) {
 function drawImage(member, category, membershipNumber) {
   ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-  ctx.font = "180px Charm";
+  ctx.font = "90px Charm";
   ctx.fillStyle = "#262264";
-  let text = centerText(member, 1030);
+  let text = centerText(member, 1030/2);
   ctx.fillText(text[0], text[1], text[2]);
 
-  ctx.font = "79px Century Gothic";
+  ctx.font = "40px Century Gothic";
   ctx.fillStyle = "#262264";
   const upperCategory = "IS A MEMBER OF ZIMBABWE INSTITUTE OF GEOMATICS";
-  let txt = centerText(upperCategory, 1200);
+  let txt = centerText(upperCategory, 1200/2);
   ctx.fillText(txt[0], txt[1], txt[2]);
 
-  let txtCat = centerText(category.toUpperCase(), 1300);
+  let txtCat = centerText(category.toUpperCase(), 1300/2);
   ctx.fillText(txtCat[0], txtCat[1], txtCat[2]);
 
-  ctx.font = "88px Liberation Mono";
+  ctx.font = "44px Liberation Mono";
   ctx.fillStyle = "#262264";
-  ctx.fillText(membershipNumber, 480, 1720);
+  ctx.fillText(membershipNumber, 480/2, 1720/2);
 }
 
 memberName.addEventListener("input", function () {
@@ -88,50 +92,99 @@ membershipID.addEventListener("input", function () {
   membershipNumber = "ZIG" + membershipID.value;
 });
 
+function controlModalContent(errorType) {
+  if (errorType == "none") {
+    modalTitle.innerText = "Download Certificate as " + downloadOption;
+    modalContent.innerText =
+      "Insert Passkey to continue...[feature under development go ahead and download for now]";
+    multiPurposeBtn.innerText = "Download";
+    //multiPurposeBtn.setAttribute("hidden", false);
+
+    if (multiPurposeBtn.innerText == "Download") {
+      switch (downloadOption) {
+
+        case "PNG":
+          multiPurposeBtn.addEventListener("click", function () {
+            drawImage(member, category, membershipNumber);
+            multiPurposeBtn.href = canvas.toDataURL();
+            multiPurposeBtn.download = "Certificate - " + member;
+            downloadOption = "";
+          });
+          break;
+        case "PDF":
+          drawImage(member, category, membershipNumber);
+          let imgData = canvas.toDataURL();
+
+          const certpdf = new jsPDF({
+            orientation: "landscape",
+            unit: "px",
+            format: [canvas.width, canvas.height],
+          });
+
+          certpdf.addImage(
+            imgData,
+            "PNG",
+            0,
+            0,
+            canvas.width,
+            canvas.height,
+            "FAST"
+          );
+          certpdf.save("Certificate-" + member + ".pdf");
+          downloadOption = "";
+          break;
+      }
+    }
+  } else if (errorType == "noInfo") {
+    modalTitle.innerText = "Error";
+    modalContent.innerText =
+      "Missing Information, Please check the information entered and make sure all fields are filled";
+    //multiPurposeBtn.setAttribute("hidden", true);
+  } else if (errorType == "catError") {
+    modalTitle.innerText = "Error";
+    modalContent.innerText = "Insert correct membership category";
+    //multiPurposeBtn.setAttribute("hidden", true);
+  } else {
+    modalTitle.innerText = "Error";
+    modalContent.innerText = "Re-enter information again";
+    //multiPurposeBtn.setAttribute("hidden",true);
+  }
+}
+
 downloadBtnPNG.addEventListener("click", function () {
+  downloadOption = "PNG";
   if (member == "" || category == "" || membershipNumber == "") {
-    alert("Missing Information");
+    controlModalContent("noInfo");
   } else if (
     member == "sample" ||
     category == "sample" ||
     membershipNumber == "sample"
   ) {
-    alert("Missing Information, fill in Again");
+    controlModalContent("noInfo");
   } else {
     if (getData(membershipCategory)) {
-      drawImage(member, category, membershipNumber);
-      downloadBtnPNG.href = canvas.toDataURL();
-      downloadBtnPNG.download = "Certificate - " + member;
+      controlModalContent("none");
     } else {
-      alert("No Such Category in ZIG Constitution");
+      controlModalContent("catError");
     }
   }
 });
 
 downloadBtnPDF.addEventListener("click", function () {
+  downloadOption = "PDF";
   if (member == "" || category == "" || membershipNumber == "") {
-    alert("Missing Information");
+    controlModalContent("noInfo");
   } else if (
     member == "sample" ||
     category == "sample" ||
     membershipNumber == "sample"
   ) {
-    alert("Missing Information, fill in Again");
+    controlModalContent("noInfo");
   } else {
     if (getData(membershipCategory)) {
-      drawImage(member, category, membershipNumber);
-      let imgData = canvas.toDataURL();
-
-      const certpdf = new jsPDF({
-        orientation: "landscape",
-        unit: "px",
-        format: [canvas.width, canvas.height],
-      });
-
-      certpdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height,"SLOW");
-      certpdf.save("Certificate-" + member + ".pdf");
+      controlModalContent("none");
     } else {
-      alert("No Such Category in ZIG Constitution");
+      controlModalContent("catError");
     }
   }
 });
