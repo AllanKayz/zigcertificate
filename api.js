@@ -128,7 +128,7 @@ downloadBtnPDF.addEventListener("click", function () {
         format: [canvas.width, canvas.height],
       });
 
-      certpdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height,"FAST");
+      certpdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height,"SLOW");
       certpdf.save("Certificate-" + member + ".pdf");
     } else {
       alert("No Such Category in ZIG Constitution");
