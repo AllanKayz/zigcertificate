@@ -16,7 +16,7 @@ let multiPurposeBtn = document.getElementById("multiPurposeBtn");
 let downloadOption = "";
 
 //import jsPDF from "jspdf";
-//const { jsPDF } = window.jspdf;
+const { jsPDF } = window.jspdf;
 
 let category = "sample";
 let member = "sample";
