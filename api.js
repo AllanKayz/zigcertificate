@@ -15,7 +15,7 @@ let modalContent = document.getElementById("modalContent");
 let multiPurposeBtn = document.getElementById("multiPurposeBtn");
 let downloadOption = "";
 
-//import jsPDF from "jspdf";
+import jsPDF from "jspdf";
 const { jsPDF } = window.jspdf;
 
 let category = "sample";
@@ -56,21 +56,21 @@ function drawImage(member, category, membershipNumber) {
 
   ctx.font = "90px Charm";
   ctx.fillStyle = "#262264";
-  let text = centerText(member, 1030/2);
+  let text = centerText(member, 1030 / 2);
   ctx.fillText(text[0], text[1], text[2]);
 
   ctx.font = "40px Century Gothic";
   ctx.fillStyle = "#262264";
   const upperCategory = "IS A MEMBER OF ZIMBABWE INSTITUTE OF GEOMATICS";
-  let txt = centerText(upperCategory, 1200/2);
+  let txt = centerText(upperCategory, 1200 / 2);
   ctx.fillText(txt[0], txt[1], txt[2]);
 
-  let txtCat = centerText(category.toUpperCase(), 1300/2);
+  let txtCat = centerText(category.toUpperCase(), 1300 / 2);
   ctx.fillText(txtCat[0], txtCat[1], txtCat[2]);
 
   ctx.font = "44px Liberation Mono";
   ctx.fillStyle = "#262264";
-  ctx.fillText(membershipNumber, 480/2, 1720/2);
+  ctx.fillText(membershipNumber, 480 / 2, 1720 / 2);
 }
 
 memberName.addEventListener("input", function () {
@@ -102,7 +102,6 @@ function controlModalContent(errorType) {
 
     if (multiPurposeBtn.innerText == "Download") {
       switch (downloadOption) {
-
         case "PNG":
           multiPurposeBtn.addEventListener("click", function () {
             drawImage(member, category, membershipNumber);
@@ -133,6 +132,12 @@ function controlModalContent(errorType) {
           certpdf.save("Certificate-" + member + ".pdf");
           downloadOption = "";
           break;
+
+        default:
+          modalTitle.innerText = "Error";
+          modalContent.innerText =
+            "Unknown Error, try again";
+            break;
       }
     }
   } else if (errorType == "noInfo") {

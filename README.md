@@ -1,2 +1,4 @@
 # zigcertificate
-Zimbabwe Institute of Geomatics Certificate Template
+
+# How it works
+Enter Name of the certificate recipient 
