@@ -1,3 +1,5 @@
+"use strict";
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const memberName = document.getElementById("memberName");
@@ -15,8 +17,8 @@ let modalContent = document.getElementById("modalContent");
 let multiPurposeBtn = document.getElementById("multiPurposeBtn");
 let downloadOption = "";
 
-//import jsPDF from "jspdf";
-const { jsPDF } = window.jspdf;
+import jsPDF from "jspdf";
+//const { jsPDF } = window.jspdf;
 
 let category = "sample";
 let member = "sample";
@@ -36,10 +38,11 @@ function centerText(value, y) {
   return [value, startX, startY];
 }
 
-getData = function (elem) {
+let getData;
+membershipCategory.addEventListener("onchange", getData = function(elem){
   const optionVals = [];
 
-  for (i = 0; i < categories.length; i++) {
+  for (let i = 0; i < categories.length; i++) {
     optionVals.push(categories[i].value);
   }
 
@@ -49,7 +52,22 @@ getData = function (elem) {
     controlModalContent("catError");
     membershipCategory.value = "";
   }
-};
+});
+
+/*function getData(elem) {
+  const optionVals = [];
+
+  for (let i = 0; i < categories.length; i++) {
+    optionVals.push(categories[i].value);
+  }
+
+  if (optionVals.indexOf(elem.value) > -1) {
+    return elem;
+  } else {
+    controlModalContent("catError");
+    membershipCategory.value = "";
+  }
+};*/
 
 function drawImage(member, category, membershipNumber) {
   ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
@@ -74,7 +92,7 @@ function drawImage(member, category, membershipNumber) {
 }
 
 memberName.addEventListener("input", function () {
-  memberNam = memberName.value;
+  const memberNam = memberName.value;
   member = memberNam.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
     letter.toUpperCase()
   );
@@ -129,6 +147,7 @@ function controlModalContent(errorType) {
             canvas.height,
             "FAST"
           );
+
           certpdf.save("Certificate-" + member + ".pdf");
           downloadOption = "";
           break;
