@@ -17,8 +17,8 @@ let modalContent = document.getElementById("modalContent");
 let multiPurposeBtn = document.getElementById("multiPurposeBtn");
 let downloadOption = "";
 
-import jsPDF from "jspdf";
-//const { jsPDF } = window.jspdf;
+//import jsPDF from "jspdf";
+const { jsPDF } = window.jspdf;
 
 let category = "sample";
 let member = "sample";
