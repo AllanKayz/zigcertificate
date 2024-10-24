@@ -8,8 +8,8 @@ const downloadBtnPDF = document.getElementById('download-btn-pdf');
 const year = new Date();
 
 //import jsPDF from "jspdf";
-const { jsPDF } = window.jspdf;
-var pdf = new jsPDF('landscape');
+//const { jsPDF } = window.pdf;
+//var pdf = new jsPDF('landscape');
 
 let category = "sample";
 let member = "sample";
@@ -47,7 +47,7 @@ function drawImage(member, category, membershipNumber) {
 }
 
 memberName.addEventListener('input', function() {
-    memberNam = memberName.value;
+    let memberNam = memberName.value;
     member = memberNam.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
 
 })
