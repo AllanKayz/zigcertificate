@@ -1,3 +1,52 @@
 #canvas {
     display: none;
+    /*font-family: "charm-bold", "century-gothic";*/
+}
+
+.card-header {
+    background-color: green;
+    color: white;
+}
+
+.card {
+    border-color: green;
+}
+
+.row>* {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.input-group-text {
+    color: whitesmoke;
+    background-color: green;
+    border-color: green;
+}
+
+.form-control {
+    border-color: green;
+}
+
+@media (min-width:576px) {
+    .card {
+        width: 95%;
+    }
+}
+
+@media (min-width:768px) {
+    .card {
+        width: 60%;
+    }
+}
+
+@media (min-width:992px) {
+    .card {
+        width: 60%;
+    }
+}
+
+@media (min-width:1400px) {
+    .card {
+        width: 50%;
+    }
 }
