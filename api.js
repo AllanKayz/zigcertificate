@@ -86,7 +86,7 @@ memberName.addEventListener("input", function () {
 });
 
 membershipCategory.addEventListener("input", function () {
-  if (hasDatePassed(year.getFullYear() + "-08-01")) {
+  if (hasDatePassed(year.getFullYear() + "-06-01")) {
     const nextYear = new Date().getFullYear() + 1;
     category =
       "REGISTERED AS A GEOMATICS " +
