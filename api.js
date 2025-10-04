@@ -130,7 +130,7 @@ function controlModalContent(errorType) {
           multiPurposeBtn.addEventListener("click", () => {
             drawImage(member, category, membershipNumber);
             multiPurposeBtn.href = canvas.toDataURL();
-            multiPurposeBtn.download = "Certificate - " + member;
+            multiPurposeBtn.download = "Certificate - " + capitalizeWords(member);
             downloadOption = "";
           });
           break;
