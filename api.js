@@ -61,7 +61,7 @@ function drawImage(member, category, membershipNumber) {
 
   ctx.font = "90px Charm";
   ctx.fillStyle = "#262264";
-  let text = centerText(member, 1090 / 2);
+  let text = centerText(capitalizeWords(member), 1090 / 2);
   ctx.fillText(text[0], text[1], text[2]);
 
   ctx.font = "40px Century-Gothic";
@@ -112,6 +112,10 @@ function hasDatePassed(dateString) {
   return date < today;
 }
 
+function capitalizeWords(sentence) {
+  return sentence.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+}
+
 function controlModalContent(errorType) {
   if (errorType == "none") {
     modalTitle.innerText = "Download Certificate as " + downloadOption;
@@ -143,7 +147,7 @@ function controlModalContent(errorType) {
               format: [canvas.width, canvas.height],
             });
             certpdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
-            certpdf.save("Certificate-" + member + ".pdf");
+            certpdf.save("Certificate-" + capitalizeWords(member) + ".pdf");
           });
           break;
 

@@ -1,103 +1,145 @@
+"use strict";
+
+const { jsPDF } = window.jspdf;
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const memberName = document.getElementById("memberName");
-const membershipCategory = document.getElementById("membershipCategory");
-const membershipID = document.getElementById("membershipID");
+
+const memberNameInput = document.getElementById("memberName");
+const membershipCategoryInput = document.getElementById("membershipCategory");
+const membershipIDInput = document.getElementById("membershipID");
 const downloadBtnPNG = document.getElementById("download-btn-png");
-const downloadBtnPDF = document.getElementById('download-btn-pdf');
+const downloadBtnPDF = document.getElementById("download-btn-pdf");
+
 const year = new Date();
+const categories = Array.from(
+  document.getElementById("categories").getElementsByTagName("option")
+).map((option) => option.value);
 
-//import jsPDF from "jspdf";
-//const { jsPDF } = window.jspdf;
-//var pdf = new jsPDF('landscape');
+const modalTitle = document.getElementById("allPurposeLabel");
+const modalContent = document.getElementById("modalContent");
+const multiPurposeBtn = document.getElementById("multiPurposeBtn");
 
-let category = "sample";
+let downloadOption = "";
 let member = "sample";
+let category = "sample";
 let membershipNumber = "sample";
 
 const image = new Image();
 image.src = "ZiGCertTemplate.png";
-image.onload = function () {
-  drawImage(member, category, membershipNumber);
-};
+image.onload = () => drawImage(member, category, membershipNumber);
 
 function centerText(value, y) {
-  let textWidth = ctx.measureText(value).width;
-  let startX = canvas.width / 2 - textWidth / 2;
-  let startY = y - 0;
-
-  return [value,startX,startY];
+  const textWidth = ctx.measureText(value).width;
+  const startX = canvas.width / 2 - textWidth / 2;
+  return { text: value, x: startX, y: y };
 }
 
 function drawImage(member, category, membershipNumber) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-  ctx.font = "180px Charm";
+  // Member Name
+  const memberNameText = centerText(member, 545);
+  ctx.font = "90px Charm";
   ctx.fillStyle = "#262264";
-  let text = centerText(member,1030);
-  ctx.fillText(text[0],text[1],text[2]);
+  ctx.fillText(memberNameText.text, memberNameText.x, memberNameText.y);
 
-  ctx.font = "79px Century Gothic";
-  ctx.fillStyle = "#262264";
-  const upperCategory = "IS A MEMBER OF ZIMBABWE INSTITUTE OF GEOMATICS";
-  let txt = centerText(upperCategory,1200);
-  ctx.fillText(txt[0],txt[1],txt[2]);
+  // Membership Details
+  ctx.font = "40px Century-Gothic";
+  const membershipText = centerText(
+    "IS A MEMBER OF ZIMBABWE INSTITUTE OF GEOMATICS",
+    630
+  );
+  ctx.fillText(membershipText.text, membershipText.x, membershipText.y);
 
-  let txtCat = centerText(category.toUpperCase(),1300);
-  ctx.fillText(txtCat[0],txtCat[1],txtCat[2]);
- 
-  ctx.font = "88px Liberation Mono";
-  ctx.fillStyle = "#262264";
-  ctx.fillText(membershipNumber, 480, 1720);
+  const categoryText = centerText(category.toUpperCase(), 680);
+  ctx.fillText(categoryText.text, categoryText.x, categoryText.y);
+
+  // Membership ID
+  ctx.font = "44px Liberation-Mono";
+  ctx.fillText(membershipNumber, 240, 860);
 }
 
-memberName.addEventListener("input", function () {
-  memberNam = memberName.value;
-  member = memberNam.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
-    letter.toUpperCase()
-  );
-});
+function updateCategory() {
+  const isDatePassed = hasDatePassed(`${year.getFullYear()}-06-01`);
+  const nextYear = isDatePassed ? year.getFullYear() + 1 : year.getFullYear();
+  category = `REGISTERED AS A GEOMATICS ${membershipCategoryInput.value} UNTIL 31 AUGUST ${nextYear}`;
+}
 
-membershipCategory.addEventListener("input", function () {
-  category =
-    "REGISTERED AS A GEOMATICS " +
-    membershipCategory.value +
-    " UNTIL 31 AUGUST " +
-    year.getFullYear();
-});
+function hasDatePassed(dateString) {
+  return new Date(dateString) < new Date();
+}
 
-membershipID.addEventListener("input", function () {
-  membershipNumber = "ZIG" + membershipID.value;
-});
-
-downloadBtnPNG.addEventListener("click", function () {
-  if (member == "" || category == "" || membershipNumber == "") {
-    alert("Missing Information");
-  } else if (
-    member == "sample" ||
-    category == "sample" ||
-    membershipNumber == "sample"
-  ) {
-    alert("Missing Information, fill in Again");
-  } else {
-    drawImage(member, category, membershipNumber);
-    downloadBtnPNG.href = canvas.toDataURL();
-    downloadBtnPNG.download = "Certificate - " + member;
+function updateModalContent(errorType) {
+  switch (errorType) {
+    case "none":
+      modalTitle.textContent = `Download Certificate as ${downloadOption}`;
+      modalContent.textContent =
+        "Insert Passkey to continue...[feature under development go ahead and download for now]";
+      multiPurposeBtn.textContent = "Download";
+      break;
+    case "noInfo":
+      modalTitle.textContent = "Error";
+      modalContent.textContent =
+        "Missing Information. Please check the information entered and ensure all fields are filled.";
+      break;
+    case "catError":
+      modalTitle.textContent = "Error";
+      modalContent.textContent = "Insert correct membership category.";
+      break;
+    default:
+      modalTitle.textContent = "Error";
+      modalContent.textContent = "Re-enter information again.";
+      break;
   }
+}
+
+function handleDownloadOption(type) {
+  downloadOption = type;
+  if (!member || !category || !membershipNumber || categories.includes(category)) {
+    updateModalContent("noInfo");
+  } else {
+    updateModalContent("none");
+  }
+}
+
+function downloadCertificate(format) {
+  drawImage(member, category, membershipNumber);
+
+  if (format === "PNG") {
+    const imageData = canvas.toDataURL();
+    const link = document.createElement("a");
+    link.href = imageData;
+    link.download = `Certificate - ${member}.png`;
+    link.click();
+  } else if (format === "PDF") {
+    const imgData = canvas.toDataURL();
+    const pdf = new jsPDF({
+      orientation: "landscape",
+      unit: "px",
+      format: [canvas.width, canvas.height],
+    });
+    pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+    pdf.save(`Certificate - ${member}.pdf`);
+  }
+}
+
+// Event Listeners
+memberNameInput.addEventListener("input", () => {
+  member = memberNameInput.value
+    .replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase())
+    .trim();
 });
 
-downloadBtnPDF.addEventListener('click', function() {
+membershipCategoryInput.addEventListener("input", updateCategory);
 
-    if (member == "" || category == "" || membershipNumber == "") {
-        alert("Missing Information");
-    } else if (member == "sample" || category == "sample" || membershipNumber == "sample") {
-        alert("Missing Information, fill in Again");
-    } else {
-
-        drawImage(member, category, membershipNumber);
-        let imgData = canvas.toDataURL();
-        pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-        pdf.save("Certificate-"+member+".pdf")
-    }
-
+membershipIDInput.addEventListener("input", () => {
+  membershipNumber = `ZIG${membershipIDInput.value}`;
 });
+
+downloadBtnPNG.addEventListener("click", () => handleDownloadOption("PNG"));
+downloadBtnPDF.addEventListener("click", () => handleDownloadOption("PDF"));
+multiPurposeBtn.addEventListener("click", () =>
+  downloadCertificate(downloadOption)
+);
