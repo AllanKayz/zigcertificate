@@ -2,6 +2,14 @@
 const { jsPDF } = window.jspdf;
 
 // ===== Platform Detection and Initial UI Setup =====
+function isMobileDevice() {
+  // Regular expression to test for common mobile device keyword
+  if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent)) {
+    return true; // Mobile device detected
+  }
+  return false; // Desktop device detected
+}
+
 function setupPlatformUI() {
   const isElectron =
     typeof navigator === "object" &&
@@ -14,10 +22,6 @@ function setupPlatformUI() {
     document.querySelector(".title-bar")?.classList.add("hide");
     document.querySelector(".status-bar")?.style.setProperty("display", "none");
     document.querySelector(".updates")?.classList.add("hide");
-    document.querySelector(".app-container")?.style.setProperty(
-      "height",
-      "95vh"
-    );
     document.querySelector(".app-container")?.style.setProperty(
       "display",
       "flex"
@@ -32,6 +36,18 @@ function setupPlatformUI() {
       font-size: 14px; transition: all 0.3s ease;`;
     footer.innerHTML = `<footer><img src='zigLogo.png' width='25' height='25' alt='ZIG'> Rights Reserved | Powered by <a href='allankayz.co.zw'><img src='AKLogo.ico' width='20' height='20' alt='AllanKayz'></a></footer>`;
     document.body.appendChild(footer);
+
+    if(isMobileDevice()) {
+      document.querySelector(".app-container")?.style.setProperty(
+        "height",
+        "90vh"
+      );
+    } else {
+      document.querySelector(".app-container")?.style.setProperty(
+        "height",
+        "calc(100vh - 40px"
+      );
+    }
   }
 }
 setupPlatformUI();
