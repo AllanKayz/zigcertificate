@@ -45,7 +45,7 @@ function setupPlatformUI() {
     } else {
       document.querySelector(".app-container")?.style.setProperty(
         "height",
-        "calc(100vh - 30px)"
+        "calc(100vh - 35px)"
       );
     }
   }
