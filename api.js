@@ -16,7 +16,7 @@ function setupPlatformUI() {
     document.querySelector(".updates")?.classList.add("hide");
     document.querySelector(".app-container")?.style.setProperty(
       "height",
-      "85vh"
+      "95vh"
     );
     document.querySelector(".app-container")?.style.setProperty(
       "display",
