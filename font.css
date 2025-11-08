@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Charm';
+    src: url('./fonts/Charm/Charm-Regular.ttf') format('truetype'),
+         url('./fonts/Charm/Charm-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Liberation Mono';
+    src: url('./fonts/liberation-mono-cdnfonts/LiberationMono-Regular.ttf') format('truetype'),
+         url('./fonts/liberation-mono-cdnfonts/LiberationMono-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Century Gothic Paneuropean';
+    src: url('./fonts/century-gothic-paneuropean-cdnfonts/CenturyGothicPaneuropeanRegular.ttf') format('truetype'),
+		 url('./fonts/century-gothic-paneuropean-cdnfonts/CenturyGothicPaneuropeanBold.ttf') format('truetype');
+}

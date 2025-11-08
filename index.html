@@ -2,56 +2,118 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="zigLogo.png" rel="icon">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="bootstrap-5.3.2-dist/css/bootstrap.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Charm' rel='stylesheet'>
-
-    <link href="https://fonts.cdnfonts.com/css/liberation-mono" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/century-gothic" rel="stylesheet">
-    <link href="main.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <script src="bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <title>ZIG Certificate Generator</title>
+    <link href="zigLogo.png" rel="icon" />
+    <link rel="stylesheet" href="font.css" />
+    <link href="index.css" rel="stylesheet" />
     <script src="vendor/jspdf/jspdf.umd.min.js"></script>
-
-    <title>ZIG CERTIFICATE</title>
-    <script type="module" src="api.js"></script>
 </head>
 
 <body>
-    <main class="container-fluid">
-        <div class="certDetails row justify-content-center mt-5">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="h3 pt-2 text-center">Zimbabwe Institute of Geomatics <br> CERTIFICATE GENERATOR</h2>
+    <!-- Title Bar -->
+    <div class="title-bar">
+        <div class="title-bar-left">
+            <div class="app-icon">
+                <img src="zigLogo.png" style="height: 16px; width: 16px;" />
+            </div>
+            <span class="app-title">Certificate Generator</span>
+        </div>
+        <div class="window-controls">
+            <div id="min-btn" class="window-btn btn-minimize" title="Minimize">
+                <svg viewBox="0 0 10 1">
+                    <path d="M0 0.5h10" />
+                </svg>
+            </div>
+            <div id="max-btn" class="window-btn btn-maximize" title="Maximize">
+                <svg viewBox="0 0 10 10">
+                    <path d="M0.5 0.5h9v9h-9z" />
+                </svg>
+            </div>
+            <div id="close-btn" class="window-btn btn-close" title="Close">
+                <svg viewBox="0 0 10 10">
+                    <path d="M0 0L10 10M10 0L0 10" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">Navigation</div>
+            </div>
+            <nav class="nav-menu">
+                <div class="nav-item active" data-view="create">
+                    <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                        <path fill-rule="evenodd"
+                            d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Create Certificate
                 </div>
-                <div class="card-body">
-                    <nav class="nav nav-pills flex-column flex-row justify-content-center">
-                        <a class="flex-sm-fill text-sm-center nav-link" aria-current="page" href="#">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">NAME</span>
-                                <input id="memberName" type="text" class="form-control text-capitalize"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                        </a>
-                        <a class="flex-sm-fill text-sm-center nav-link" href="#">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">CATEGORY</span>
-                                <input id="membershipCategory" type="text" class="form-control" list="categories"
-                                     aria-label="Sizing example input"
-                                    aria-describedby="inputGroup-sizing-default">
+                <!--div class="nav-item" data-view="templates">
+                    <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Templates
+                </div-->
+                <!--div class="nav-item" data-view="history">
+                    <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    History
+                </div-->
+                <div class="nav-item" data-view="settings">
+                    <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Settings
+                </div>
+                <div class="nav-item updates" data-view="update">
+                    <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Updates
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <div class="header-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                    <h1 class="content-title" id="pageTitle">Create New Certificate</h1>
+                </div>
+            </div>
+            <div class="content-body">
+                <!-- Create Certificate View -->
+                <div class="page-view active" id="createView">
+                    <!-- Certificate Details -->
+                    <div class="form-section">
+                        <h2 class="section-title">Certificate Details</h2>
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input id="memberName" type="text" class="form-input" placeholder="Enter recipient name">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Membership Category</label>
+                                <input id="membershipCategory" type="text" class="form-input" list="categories"
+                                    placeholder="PROFESSIONAL">
                                 <datalist id="categories">
                                     <option>TECHNOLOGIST</option>
                                     <option>PROFESSIONAL</option>
@@ -65,58 +127,460 @@
                                     <option>COMPANY</option>
                                 </datalist>
                             </div>
-                        </a>
-                        <a class="flex-sm-fill text-sm-center nav-link" href="#">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">MEMBERSHIP ID</span>
-                                <input id="membershipID" type="number" class="form-control"
-                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <div class="form-group">
+                                <label class="form-label">Membership ID</label>
+                                <input id="membershipID" type="number" class="form-input" placeholder="10001">
                             </div>
-                        </a>
-                        <div class=" btn-group" role="group" aria-label="Basic outlined example">
-                            <a href="#" id="download-btn-png" type="button" class="btn btn-outline-primary"
-                                data-bs-toggle="modal" data-bs-target="#allPurpose">PNG <i
-                                    class="fa-regular fa-file-image"></i></a>
-                            <a href="#" id="download-btn-pdf" type="button" class="btn btn-outline-success"
-                                class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#allPurpose">PDF
-                                <i class="fa-regular fa-file-pdf"></i></a>
                         </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <div class="certPrev p-3">
-            <div class="img-fluid">
-                <canvas id="canvas" width="1667.5px" height="1182px"></canvas>
-            </div>
-        </div>
-        <!--Modal Instructions-->
-        <div class="modal fade" id="allPurpose" tabindex="-1" aria-labelledby="allPurposeLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="allPurposeLabel">Modal Title change</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="modalContent">
-                        Modal intechangeble content
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="btnClose" class="btn btn-secondary"
-                            data-bs-dismiss="modal">Close</button>
-                        <a href="#" id="multiPurposeBtn" class="btn btn-primary">OK</a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-    </main>
-    <div class="container">
-        <footer class="pb-3 fixed-bottom text-center">
-            <img src="zigLogo.png" width="50" height="50" class="img-fluid" alt="ZIG"> Rights Reserved | Powered by <a
-                href="allankayz.co.zw"><img src="AKLogo.ico" width="20" height="20" class="img-fluid" alt="AK"></a>
-        </footer>
+                    <div class="img-fluid">
+                        <canvas id="canvas" width="1667.5px" height="1182px"></canvas>
+                    </div>
+
+                    <!-- Preview -->
+                    <div class="form-section">
+                        <h2 class="section-title">Preview</h2>
+                        <div class="preview-panel">
+                            <div id="preview-placeholder" class="preview-placeholder">
+                                <div class="preview-icon">📜</div>
+                                <p>Certificate preview will appear here</p>
+                            </div>
+                            <div id="preview" class="preview"></div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="checkForErrors()">Generate Certificate</button>
+                        <button class="btn btn-secondary" onclick="preview()">Preview Certificate</button>
+                        <button class="btn btn-secondary" onclick="reset()">Reset</button>
+                    </div>
+                </div>
+
+                <!-- Templates View -->
+                <!--div class="page-view" id="templatesView">
+                    <div class="form-section">
+                        <h2 class="section-title">Available Templates</h2>
+                        <p style="color: #858585; margin-top: 8px;">Browse and select from our collection of certificate
+                            templates.</p>
+                    </div>
+                </div-->
+
+                <!-- History View -->
+                <!--div class="page-view" id="historyView">
+                    <div class="form-section">
+                        <h2 class="section-title">Certificate History</h2>
+                        <p style="color: #858585; margin-top: 8px;">View all previously generated certificates.</p>
+                    </div>
+                </div-->
+
+                <!-- Settings View -->
+                <div class="page-view" id="settingsView">
+                    <!-- General Settings -->
+                    <!--div class="form-section settings-grid">
+                        <h2 class="section-title">General Settings</h2>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Auto-save drafts</div>
+                                <div class="setting-description">Automatically save certificate drafts while working
+                                </div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Show grid in preview</div>
+                                <div class="setting-description">Display alignment grid in certificate preview</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">High quality export</div>
+                                <div class="setting-description">Export certificates at maximum quality (larger file
+                                    size)</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div-->
+
+                    <!-- Appearance Settings -->
+                    <div class="form-section settings-grid">
+                        <h2 class="section-title">Appearance</h2>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Theme</div>
+                                <div class="setting-description">Choose your preferred color theme</div>
+                            </div>
+                            <select class="form-select" name="theme" style="width: 200px;">
+                                <option value="dark" selected>Dark</option>
+                                <option value="light">Light</option>
+                                <option value="system">System Default</option>
+                            </select>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Accent color</div>
+                                <div class="setting-description">Customize the app accent color</div>
+                            </div>
+                            <div class="color-picker-wrapper">
+                                <input type="color" class="color-picker" value="#667eea">
+                                <div class="color-preview"
+                                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Font size</div>
+                                <div class="setting-description">Adjust the interface font size</div>
+                            </div>
+                            <select class="form-select" name="fontSize" style="width: 200px;">
+                                <option value="small">Small</option>
+                                <option selected value="medium">Medium</option>
+                                <option value="large">Large</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Default Settings -->
+                    <!--div class="form-section settings-grid">
+                        <h2 class="section-title">Certificate Defaults</h2>
+
+                        <div class="form-group">
+                            <label class="form-label">Default template</label>
+                            <select class="form-select">
+                                <option>Professional Blue</option>
+                                <option>Elegant Gold</option>
+                                <option>Modern Minimal</option>
+                                <option>Classic Formal</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Default organization</label>
+                            <input type="text" class="form-input" placeholder="Your organization name">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Export format</label>
+                            <select class="form-select">
+                                <option>PDF</option>
+                                <option>PNG</option>
+                                <option>JPG</option>
+                                <option>SVG</option>
+                            </select>
+                        </div>
+                    </div-->
+
+                    <!-- Advanced Settings -->
+                    <!--div class="form-section settings-grid">
+                        <h2 class="section-title">Advanced</h2>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Enable developer mode</div>
+                                <div class="setting-description">Access advanced features and debugging tools</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Clear cache</div>
+                                <div class="setting-description">Remove temporary files and cached data</div>
+                            </div>
+                            <button class="btn btn-secondary">Clear Cache</button>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Reset all settings</div>
+                                <div class="setting-description">Restore default application settings</div>
+                            </div>
+                            <button class="btn btn-secondary">Reset</button>
+                        </div>
+                    </div-->
+
+                    <!-- Save Button -->
+                    <div class="button-group">
+                        <button id="save-appearance" class="btn btn-primary save-appearance">Save Settings</button>
+                        <button class="btn btn-secondary">Cancel</button>
+                    </div>
+                </div>
+
+                <!-- Updates View -->
+                <div class="page-view" id="updateView">
+                    <!-- Update Available Banner -->
+                    <div class="update-banner" id="updateAvailableBanner" style="display: none;">
+                        <div class="update-icon">🎉</div>
+                        <div class="update-info">
+                            <!--div class="update-title">New Update Available!</div>
+                            <div class="update-subtitle">Version 2.0.0 is ready to install with exciting new features</div-->
+                            <div class="update-title">No New Update Available!</div>
+                            <div class="update-subtitle">You are on the current latest version</div>
+                        </div>
+                        <!--button class="btn btn-primary" onclick="startUpdate()">Install Now</button-->
+                    </div>
+
+                    <!-- Current Status -->
+                    <div class="form-section">
+                        <h2 class="section-title">Current Version</h2>
+                        <div class="version-info">
+                            <div class="version-card">
+                                <div class="version-label">Installed Version</div>
+                                <div class="version-number">1.0.0</div>
+                            </div>
+                            <div class="version-card">
+                                <div class="version-label">Latest Version</div>
+                                <div class="version-number" id="latestVersion">1.0.0</div>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn btn-primary" onclick="checkForUpdates()">
+                                <svg style="width: 14px; height: 14px; margin-right: 6px;" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                Check for Updates
+                            </button>
+                            <a href="allankayz.co.zw/zigcert/releasenotes" class="btn btn-secondary">Release Notes</a>
+                        </div>
+
+                        <!-- Update Progress (hidden by default) -->
+                        <div id="updateProgress" style="display: none;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <div class="update-status" id="updateStatus">Preparing download...</div>
+                        </div>
+                    </div>
+
+                    <!-- What's New -->
+                    <div class="form-section" id="whatsNewSection" style="display: none;">
+                        <h2 class="section-title">What's New in Version 2.0.0</h2>
+                        <ul class="changelog">
+                            <li>
+                                <div class="changelog-icon">✨</div>
+                                <div class="changelog-text">
+                                    <div class="changelog-type new">New</div>
+                                    <div>Advanced template editor with drag-and-drop functionality</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="changelog-icon">🎨</div>
+                                <div class="changelog-text">
+                                    <div class="changelog-type new">New</div>
+                                    <div>10 additional professional certificate templates</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="changelog-icon">⚡</div>
+                                <div class="changelog-text">
+                                    <div class="changelog-type improved">Improved</div>
+                                    <div>PDF export is now 3x faster with better quality</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="changelog-icon">🔧</div>
+                                <div class="changelog-text">
+                                    <div class="changelog-type improved">Improved</div>
+                                    <div>Enhanced performance and reduced memory usage</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="changelog-icon">🐛</div>
+                                <div class="changelog-text">
+                                    <div class="changelog-type fixed">Fixed</div>
+                                    <div>Resolved issue with special characters in recipient names</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="changelog-icon">🔒</div>
+                                <div class="changelog-text">
+                                    <div class="changelog-type fixed">Fixed</div>
+                                    <div>Security improvements and bug fixes</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Update Settings -->
+                    <div class="form-section settings-grid">
+                        <h2 class="section-title">Update Preferences</h2>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Automatic updates</div>
+                                <div class="setting-description">Automatically download and install updates</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Check for updates on startup</div>
+                                <div class="setting-description">Check for available updates when app launches</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Beta updates</div>
+                                <div class="setting-description">Receive early access to beta features and updates</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- About Section -->
+                    <div class="form-section settings-grid">
+                        <h2 class="section-title">About</h2>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Application Name:</div>
+                                <div class="setting-description">ZIG Certificate Generator</div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Version:</div>
+                                <div class="setting-description">1.0.0</div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Build:</div>
+                                <div class="setting-description">2025.11.05</div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Platform:</div>
+                                <div class="setting-description">Windows</div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Developer:</div>
+                                <div class="setting-description">
+                                    <a href="allankayz.co.zw" class="about-links">
+                                        <img src="AKLogo.ico" width="40" height="40" class="img-about" alt="AK">
+                                        <span>AllanKayz Technologies</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Copyright:</div>
+                                <div class="setting-description">
+                                    <a href="zigeomatics.org.zw" class="about-links">
+                                        <img src="zigLogo.png" width="40" height="40" class="img-about" alt="ZIG">
+                                        <span>Zimbabwe Institute of Geomatics</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">License:</div>
+                                <div class="setting-description">Proprietary Software</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span>Ready</span>
+            <span>v1.0.0</span>
+        </div>
+        <div class="status-right">
+            <!--span>Certificates: 0</span>
+            <span>Templates: 4</span-->
+            <button class="status-btn" onclick="checkForUpdatesFromStatus()" title="Check for updates">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                        clip-rule="evenodd" />
+                </svg>
+                Check for Updates
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Certificate -->
+    <div class="modal" id="certificateModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Certificate Generated Successfully</h3>
+                <button class="modal-close" onclick="closeModal('certificate')">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px;">Your certificate has been generated and is ready.</p>
+                <div class="button-group">
+                    <button onclick="saveCertificate('PDF')" class="btn btn-primary">Save as PDF</button>
+                    <a href="" id="multiPurposeBtn" onclick="saveCertificate('PNG')" class="btn btn-primary">
+                        Save as PNG</a>
+                    <button class="btn btn-secondary" onclick="closeModal('certificate')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Info -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalInfoTitle" class="modal-title">Info</h3>
+                <button class="modal-close" onclick="closeModal('info')">x</button>
+            </div>
+            <div class="modal-body">
+                <p id="modalInfoContent" style="margin-bottom: 20px;"></p>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="closeModal('info')">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
+<script src="./api.js"></script>
 
 </html>
