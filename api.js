@@ -40,7 +40,7 @@ function setupPlatformUI() {
     if(isMobileDevice()) {
       document.querySelector(".app-container")?.style.setProperty(
         "height",
-        "90vh"
+        "85vh"
       );
     } else {
       document.querySelector(".app-container")?.style.setProperty(
