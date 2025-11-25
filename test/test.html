@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZIG Certificate Generator Tests</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.20.0.css">
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture">
+        <input id="memberName" type="text">
+        <input id="membershipCategory" type="text" list="categories">
+        <datalist id="categories">
+            <option>TECHNOLOGIST</option>
+            <option>PROFESSIONAL</option>
+            <option>TECHNICAL</option>
+            <option>STUDENT</option>
+            <option>FELLOW</option>
+            <option>GRADUATE</option>
+            <option>RETIRED</option>
+            <option>AFFILIATE</option>
+            <option>HONORARY</option>
+            <option>COMPANY</option>
+        </datalist>
+        <input id="membershipID" type="number">
+        <div id="certificateModal" class="modal"></div>
+        <div id="infoModal" class="modal">
+             <div id="modalInfoTitle"></div>
+             <div id="modalInfoContent"></div>
+        </div>
+        <canvas id="canvas" width="1667.5px" height="1182px"></canvas>
+    </div>
+    <script src="https://code.jquery.com/qunit/qunit-2.20.0.js"></script>
+    <script src="../vendor/jspdf/jspdf.umd.min.js"></script>
+    <script src="../api.js"></script>
+    <script src="test.js"></script>
+</body>
+</html>
