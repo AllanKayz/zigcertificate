@@ -271,7 +271,7 @@ function validateFields() {
     openModal("error");
     return false;
   }
-  if (!categories.some(opt => opt.value === membershipCategoryInput.value)) {
+  if (!categories.some(opt => opt.value.toUpperCase() === membershipCategoryInput.value.toUpperCase())) {
     openModal("catError");
     return false;
   }
@@ -325,13 +325,15 @@ memberNameInput.addEventListener("input", function () {
 });
 
 membershipCategoryInput.addEventListener("change", function () {
+  const inputValue = membershipCategoryInput.value.toUpperCase();
   // Validate against category options
-  if (!categories.some(opt => opt.value === membershipCategoryInput.value)) {
+  if (!categories.some(opt => opt.value === inputValue)) {
     openModal("catError");
     membershipCategoryInput.value = "";
     category = "";
     return;
   }
+  membershipCategoryInput.value = inputValue;
   // Set category text
   const endYear =
     hasDatePassed(year.getFullYear() + "-06-01")
